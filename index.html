@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMONG US: The Bhopal Protocol | IIIT Bhopal x SPARK</title>
+  <meta name="description" content="Official landing page for IIIT Bhopal's Among Us Inter-College Tournament organized by SPARK. Join the thrilling hybrid LAN & Online showdown, complete mini-tasks, customize your crewmate, and compete for ₹20,000 in prizes!">
+  <meta name="keywords" content="IIIT Bhopal, Among Us, SPARK, Esports Tournament, LAN Tournament, College Gaming">
+  
+  <!-- Favicon using SVG Data URI -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23F45858'/><ellipse cx='65' cy='42' rx='22' ry='14' fill='%2367C9F5'/><ellipse cx='70' cy='39' rx='12' ry='6' fill='%23FFFFFF'/></svg>">
+
+  <!-- Google Fonts: Space Grotesk (Headings) & Inter (Body) as recommended in The Web Task Guide -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Inter:wght@400;500;600;700;800&family=Press+Start+2P&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Starfield Dynamic Canvas Background -->
+  <canvas id="space-canvas"></canvas>
+
+  <!-- Emergency Flash Overlay -->
+  <div id="emergency-overlay"></div>
+
+  <!-- NAVIGATION BAR -->
+  <header class="navbar">
+    <div class="container nav-content">
+      <a href="#" class="nav-brand">
+        <div class="brand-logo-wrap">
+          <!-- Mini SVG Crewmate -->
+          <svg width="24" height="28" viewBox="0 0 100 120">
+            <rect x="10" y="25" width="20" height="50" rx="8" fill="#B32020" />
+            <rect x="25" y="10" width="60" height="90" rx="28" fill="#F45858" />
+            <rect x="55" y="24" width="38" height="26" rx="12" fill="#67C9F5" stroke="#000" stroke-width="4" />
+            <ellipse cx="72" cy="32" rx="10" ry="5" fill="#FFF" />
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>IIIT BHOPAL</h1>
+          <span class="brand-tag">SPARK • MISSION 01</span>
+        </div>
+      </a>
+
+      <nav>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="#overview" class="nav-link">Overview</a></li>
+          <li><a href="#mini-tasks" class="nav-link">Play Tasks</a></li>
+          <li><a href="#campus-map" class="nav-link">Campus Skeld</a></li>
+          <li><a href="#customizer" class="nav-link">Crew Badge</a></li>
+          <li><a href="#prizes" class="nav-link">Prizes</a></li>
+          <li><a href="#schedule" class="nav-link">Schedule</a></li>
+          <li><a href="#faq" class="nav-link">Rules & FAQ</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <!-- Light / Dark Mode Toggle Button -->
+        <button id="theme-toggle-btn" class="theme-toggle-btn" aria-label="Toggle Light / Dark Mode" title="Switch Theme (Light / Dark)">
+          <span class="theme-icon" id="theme-icon">☀️</span>
+          <span class="theme-text" id="theme-text">Light</span>
+        </button>
+
+        <!-- Background Music Controller -->
+        <div class="bgm-player-nav" id="bgm-player-nav">
+          <button id="bgm-toggle-btn" class="bgm-pill-btn" aria-label="Toggle Background Music" title="Play / Stop Music">
+            <span class="bgm-icon" id="bgm-icon">🎵</span>
+            <div class="bgm-equalizer">
+              <span class="eq-bar bar-1"></span>
+              <span class="eq-bar bar-2"></span>
+              <span class="eq-bar bar-3"></span>
+              <span class="eq-bar bar-4"></span>
+            </div>
+            <span class="bgm-status-text" id="bgm-status-text">MUSIC: OFF</span>
+          </button>
+          
+          <!-- Track Selector Pill (Asphalt vs Among Us) -->
+          <button id="bgm-track-select-btn" class="bgm-track-badge" title="Click to switch music: Asphalt Racing Beat vs Among Us Ambience">
+            <span id="bgm-track-label">🏎️ Asphalt Beat</span>
+          </button>
+
+          <div class="bgm-volume-wrap">
+            <input type="range" id="bgm-volume-slider" min="0" max="1" step="0.05" value="0.35" class="bgm-slider" title="Music Volume">
+          </div>
+        </div>
+
+        <!-- Sound Synthesizer Toggle -->
+        <button id="sound-toggle" class="sound-toggle-btn" aria-label="Toggle Sound Effects">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+        </button>
+
+        <a href="#register" class="btn btn-red btn-sm">Join Match</a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Open Menu">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="overview">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-badge-pill">
+            <span class="dot"></span>
+            <span>IIIT BHOPAL x SPARK • WEB MISSION 01 PRESENTS</span>
+          </div>
+
+          <h2 class="hero-title">
+            THERE IS AN <span class="highlight-red">IMPOSTOR</span> ON <span class="highlight-cyan">CAMPUS</span>
+          </h2>
+
+          <p class="hero-desc">
+            Welcome aboard the IIIT Bhopal Skeld! Put on your spacesuit for an exhilarating inter-college 
+            Among Us championship. Decode sabotages in CC3, call emergency meetings in the Cafeteria, 
+            and outsmart your batchmates for a ₹20,000 prize pool!
+          </p>
+
+          <div class="hero-meta-strip">
+            <div class="hero-meta-item">
+              <div class="meta-icon-box">📅</div>
+              <div>
+                <div class="meta-label">Match Dates</div>
+                <div class="meta-val">Nov 14 - 16, 2026</div>
+              </div>
+            </div>
+            <div class="hero-meta-item">
+              <div class="meta-icon-box">📍</div>
+              <div>
+                <div class="meta-label">Arena</div>
+                <div class="meta-val">CC3 LAN + Discord</div>
+              </div>
+            </div>
+            <div class="hero-meta-item">
+              <div class="meta-icon-box">🏆</div>
+              <div>
+                <div class="meta-label">Prize Bounty</div>
+                <div class="meta-val">₹20,000 Cash Pool</div>
+              </div>
+            </div>
+            <div class="hero-meta-item">
+              <div class="meta-icon-box">🛰️</div>
+              <div>
+                <div class="meta-label">Format</div>
+                <div class="meta-val">Proximity Voice Chat</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-cta-group">
+            <a href="#register" class="btn btn-red btn-lg">
+              <span>🚀 Enlist As Crewmate</span>
+            </a>
+            <a href="#mini-tasks" class="btn btn-outline btn-lg">
+              <span>🔧 Fix Campus Grid</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Hero Emergency Console Visual -->
+        <div class="hero-visual-col">
+          <div class="emergency-hero-card">
+            <div class="glass-cage">
+              <div class="glass-cage-warning">⚠️ IN CASE OF SUSPICIOUS ACTIVITY ⚠️</div>
+              <div class="emergency-button-wrapper">
+                <button class="big-emergency-btn js-emergency-trigger" aria-label="Emergency Meeting">
+                  <span class="emergency-btn-label">EMERGENCY</span>
+                  <span class="emergency-btn-sub">PRESS TO CALL</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="hero-crew-visual">
+              <!-- Animated Among Us Crewmates -->
+              <svg class="floating-crew-hero" width="130" height="150" viewBox="0 0 100 120">
+                <!-- Backpack -->
+                <rect x="12" y="32" width="22" height="52" rx="8" fill="#B32020" stroke="#000" stroke-width="4" />
+                <!-- Body -->
+                <path d="M 30 110 L 30 96 Q 50 98 70 96 L 70 110 Q 60 114 52 110 Q 42 114 30 110 Z" fill="#B32020" stroke="#000" stroke-width="4" />
+                <rect x="26" y="16" width="62" height="88" rx="28" fill="#F45858" stroke="#000" stroke-width="4" />
+                <!-- Visor -->
+                <rect x="52" y="28" width="42" height="28" rx="12" fill="#67C9F5" stroke="#000" stroke-width="4" />
+                <ellipse cx="70" cy="36" rx="12" ry="6" fill="#FFF" opacity="0.9" />
+                <!-- Shadow contour -->
+                <path d="M 28 75 Q 55 90 86 75 L 86 86 Q 55 106 28 86 Z" fill="#B32020" />
+              </svg>
+
+              <!-- Yellow Detective Crewmate -->
+              <svg class="floating-crew-hero" style="animation-delay: -2s; margin-left: 110px;" width="100" height="120" viewBox="0 0 100 120">
+                <rect x="12" y="32" width="20" height="46" rx="8" fill="#C29828" stroke="#000" stroke-width="4" />
+                <rect x="26" y="20" width="56" height="78" rx="26" fill="#FFD166" stroke="#000" stroke-width="4" />
+                <!-- Mini Chef Hat -->
+                <path d="M 38 22 Q 44 6 56 12 Q 68 4 72 22 Z" fill="#FFFFFF" stroke="#000" stroke-width="3" />
+                <rect x="50" y="32" width="38" height="24" rx="10" fill="#67C9F5" stroke="#000" stroke-width="3.5" />
+                <ellipse cx="66" cy="38" rx="9" ry="4" fill="#FFF" />
+              </svg>
+            </div>
+
+            <p style="font-size: 0.85rem; color: #A3ADC2; margin-top: 10px;">
+              Click button to simulate an Emergency Meeting vote!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COUNTDOWN STRIP -->
+    <div class="countdown-strip">
+      <div class="container countdown-grid">
+        <div class="countdown-title-wrap">
+          <h3>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            MISSION COUNTDOWN TO TAKEOFF
+          </h3>
+          <p>Registration closes 24 hours prior to prelim lobbies. Squad capacity is limited!</p>
+        </div>
+
+        <div class="timer-boxes">
+          <div class="timer-unit">
+            <span class="timer-num" id="timer-days">18</span>
+            <span class="timer-label">DAYS</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-num" id="timer-hours">09</span>
+            <span class="timer-label">HOURS</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-num" id="timer-mins">44</span>
+            <span class="timer-label">MINS</span>
+          </div>
+          <div class="timer-unit">
+            <span class="timer-num" id="timer-secs">20</span>
+            <span class="timer-label">SECS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOURNAMENT HIGHLIGHT STATS -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">🎮</div>
+            <div class="stat-value">64 SQUADS</div>
+            <div class="stat-desc">Inter-college competitors battling in custom private lobbies</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💰</div>
+            <div class="stat-value">₹20,000</div>
+            <div class="stat-desc">Cash prize pool, champion trophies & SPARK merchandise</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⚡</div>
+            <div class="stat-value">0ms LAN PING</div>
+            <div class="stat-desc">Dedicated gigabit server network hosted on IIIT Bhopal campus</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🎙️</div>
+            <div class="stat-value">PROXIMITY VC</div>
+            <div class="stat-desc">Realistic 3D directional voice chat for pure suspense & deceit</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLAYABLE MINI-TASKS SECTION -->
+    <section class="tasks-section" id="mini-tasks">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">PLAYABLE IN-BROWSER</span>
+          <h2 class="section-title">RESTORE THE CAMPUS GRID</h2>
+          <p class="section-subtitle">
+            Impostors have sabotaged IIIT Bhopal's main systems! Complete these 3 interactive ship tasks to 
+            raise the total task bar and unlock exclusive tournament perks.
+          </p>
+        </div>
+
+        <!-- Global Campus Task Integrity Bar -->
+        <div class="task-bar-container">
+          <div class="task-bar-progress" id="global-task-fill"></div>
+          <div class="task-bar-label">
+            TOTAL CAMPUS SHIP INTEGRITY: <span id="global-task-percentage">35%</span>
+          </div>
+        </div>
+
+        <!-- Task Completion Reward Banner -->
+        <div id="task-unlocked-banner" style="display: none; background: rgba(141, 217, 130, 0.15); border: 2px dashed #8DD982; border-radius: 14px; padding: 16px; margin-bottom: 30px; text-align: center;">
+          <h4 style="font-family: var(--font-heading); color: #8DD982; font-size: 1.2rem; margin-bottom: 4px;">🎉 ALL REPAIR TASKS COMPLETED!</h4>
+          <p style="color: #FFE5D1; font-size: 0.9rem;">You unlocked VIP Priority Seeding! Use referral code <strong>SUS-IIITB-100</strong> during registration.</p>
+        </div>
+
+        <div class="mini-tasks-grid">
+          
+          <!-- Mini Task 1: Card Swipe -->
+          <div class="mini-task-card" id="task-card-1">
+            <div class="task-header">
+              <div class="task-name-box">
+                <span class="task-badge-pill">ADMIN</span>
+                <h4 style="font-family: var(--font-heading); font-size: 1.1rem;">Swipe Card</h4>
+              </div>
+              <span class="task-status-pill">PENDING</span>
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+              Drag the IIIT Bhopal ID card from left to right through the slot at the right speed.
+            </p>
+
+            <div class="card-swipe-box" id="swipe-reader-container">
+              <div class="swipe-reader" id="swipe-reader">
+                <div class="reader-slot"></div>
+                <div class="reader-led red" id="reader-led"></div>
+              </div>
+
+              <div class="swipe-card-item" id="swipe-card">
+                <div style="display: flex; justify-content: space-between;">
+                  <div class="card-chip"></div>
+                  <span style="font-size: 0.6rem; font-weight: 800; color: #000;">IIIT BHOPAL</span>
+                </div>
+                <div class="card-label">CREWMATE PASS</div>
+              </div>
+
+              <div class="swipe-instruction" id="swipe-msg">Swipe card to verify cadet</div>
+            </div>
+          </div>
+
+          <!-- Mini Task 2: Fix Wiring -->
+          <div class="mini-task-card" id="task-card-2">
+            <div class="task-header">
+              <div class="task-name-box">
+                <span class="task-badge-pill" style="color: #67C9F5;">ELECTRICAL</span>
+                <h4 style="font-family: var(--font-heading); font-size: 1.1rem;">Fix Wiring</h4>
+              </div>
+              <span class="task-status-pill">PENDING</span>
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+              Click a left terminal, then click the matching color terminal on the right to connect wires.
+            </p>
+
+            <div class="wires-box">
+              <canvas class="wires-canvas" id="wires-canvas"></canvas>
+              <div class="wires-terminals">
+                <!-- Left Nodes -->
+                <div class="terminals-col">
+                  <div class="terminal-node node-red wire-node-left" data-color="red" title="Red Wire"></div>
+                  <div class="terminal-node node-blue wire-node-left" data-color="blue" title="Blue Wire"></div>
+                  <div class="terminal-node node-yellow wire-node-left" data-color="yellow" title="Yellow Wire"></div>
+                  <div class="terminal-node node-pink wire-node-left" data-color="pink" title="Pink Wire"></div>
+                </div>
+
+                <!-- Right Nodes (Scrambled) -->
+                <div class="terminals-col">
+                  <div class="terminal-node node-yellow wire-node-right" data-color="yellow" title="Yellow Terminal"></div>
+                  <div class="terminal-node node-red wire-node-right" data-color="red" title="Red Terminal"></div>
+                  <div class="terminal-node node-pink wire-node-right" data-color="pink" title="Pink Terminal"></div>
+                  <div class="terminal-node node-blue wire-node-right" data-color="blue" title="Blue Terminal"></div>
+                </div>
+              </div>
+            </div>
+
+            <div style="font-size: 0.8rem; color: var(--text-dim); text-align: center;" id="wires-msg">
+              Connect all 4 matching colored circuits
+            </div>
+          </div>
+
+          <!-- Mini Task 3: Reactor Calibrator -->
+          <div class="mini-task-card" id="task-card-3">
+            <div class="task-header">
+              <div class="task-name-box">
+                <span class="task-badge-pill" style="color: #FFD166;">REACTOR</span>
+                <h4 style="font-family: var(--font-heading); font-size: 1.1rem;">Calibrate Output</h4>
+              </div>
+              <span class="task-status-pill">PENDING</span>
+            </div>
+
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">
+              Click CALIBRATE when the cyan dial points directly at the top yellow sensor. Hit 3 in a row!
+            </p>
+
+            <div class="calibrator-box">
+              <div class="calibrator-dial">
+                <div class="calibrator-target"></div>
+                <div class="calibrator-hand" id="calibrator-hand"></div>
+              </div>
+
+              <button class="calibrate-btn" id="calibrate-btn">CALIBRATE</button>
+
+              <div class="calibrate-stages">
+                <div class="stage-dot"></div>
+                <div class="stage-dot"></div>
+                <div class="stage-dot"></div>
+              </div>
+            </div>
+
+            <div style="font-size: 0.8rem; color: var(--text-dim); text-align: center;" id="calibrate-msg">
+              Time your click accurately
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE CAMPUS SKELD MAP -->
+    <section class="map-section" id="campus-map">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">INTERACTIVE TACTICAL DECK</span>
+          <h2 class="section-title">THE BHOPAL SKELD MAP</h2>
+          <p class="section-subtitle">
+            Explore the layout of our hybrid campus arena. Click any room or secret vent to reveal tournament 
+            stages, rules, and secrets!
+          </p>
+        </div>
+
+        <div class="map-layout">
+          <!-- Interactive SVG Map -->
+          <div class="skeld-canvas-wrap">
+            <div class="map-legend-bar">
+              <span>🚀 DECK: IIIT BHOPAL SECTOR 01</span>
+              <span>CLICK ROOMS FOR INTEL</span>
+            </div>
+
+            <svg class="interactive-map-svg" viewBox="0 0 600 400">
+              <!-- Ship Hallway Connectors -->
+              <path d="M 120 180 L 480 180 M 300 80 L 300 320 M 160 270 L 440 270" stroke="#1F264C" stroke-width="26" stroke-linecap="round" fill="none" />
+
+              <!-- Cafeteria (Top Center) -->
+              <g class="room-node active" data-room="cafeteria">
+                <rect x="210" y="20" width="180" height="95" rx="14" fill="#181D3C" stroke="#2D3768" stroke-width="2" />
+                <circle cx="300" cy="65" r="22" fill="#242C5B" stroke="#F45858" stroke-width="2" />
+                <circle cx="300" cy="65" r="8" fill="#F45858" />
+                <text x="300" y="70" font-size="7" fill="#fff" text-anchor="middle" font-family="'Space Grotesk'">EMERGENCY</text>
+                <text x="300" y="105" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">CAFETERIA (CANTEEN)</text>
+              </g>
+
+              <!-- Admin (Center Right) -->
+              <g class="room-node" data-room="admin">
+                <rect x="390" y="140" width="160" height="90" rx="14" fill="#181D3C" stroke="#2D3768" stroke-width="2" />
+                <rect x="420" y="165" width="100" height="35" rx="6" fill="#242C5B" />
+                <text x="470" y="186" font-size="9" fill="#FFD166" text-anchor="middle">CARD VERIFICATION</text>
+                <text x="470" y="220" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">ADMIN (SAC WING)</text>
+              </g>
+
+              <!-- Electrical (Bottom Center) -->
+              <g class="room-node" data-room="electrical">
+                <rect x="220" y="240" width="160" height="110" rx="14" fill="#181D3C" stroke="#2D3768" stroke-width="2" />
+                <rect x="240" y="260" width="30" height="20" rx="4" fill="#67C9F5" opacity="0.6" />
+                <rect x="285" y="260" width="30" height="20" rx="4" fill="#67C9F5" opacity="0.6" />
+                <rect x="330" y="260" width="30" height="20" rx="4" fill="#67C9F5" opacity="0.6" />
+                <text x="300" y="305" font-size="9" fill="#8DD982" text-anchor="middle">CC3 LAN RIGS</text>
+                <text x="300" y="338" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">ELECTRICAL (CC3 LAB)</text>
+              </g>
+
+              <!-- MedBay (Top Left) -->
+              <g class="room-node" data-room="medbay">
+                <rect x="40" y="50" width="130" height="85" rx="14" fill="#181D3C" stroke="#2D3768" stroke-width="2" />
+                <ellipse cx="105" cy="85" rx="20" ry="12" fill="#242C5B" stroke="#67C9F5" stroke-width="1.5" />
+                <text x="105" y="89" font-size="8" fill="#67C9F5" text-anchor="middle">SCANNER</text>
+                <text x="105" y="124" font-size="11" fill="#fff" text-anchor="middle" font-weight="bold">MEDBAY</text>
+              </g>
+
+              <!-- Reactor / Final Stage (Far Left) -->
+              <g class="room-node" data-room="reactor">
+                <rect x="30" y="180" width="140" height="115" rx="14" fill="#181D3C" stroke="#2D3768" stroke-width="2" />
+                <circle cx="100" cy="225" r="22" fill="#242C5B" stroke="#FFD166" stroke-width="2" />
+                <circle cx="100" cy="225" r="9" fill="#FFD166" opacity="0.8" />
+                <text x="100" y="270" font-size="9" fill="#FFE5D1" text-anchor="middle">FINALS AUDITORIUM</text>
+                <text x="100" y="287" font-size="12" fill="#fff" text-anchor="middle" font-weight="bold">REACTOR (MAIN STAGE)</text>
+              </g>
+
+              <!-- Vents (Interactive Easter Eggs) -->
+              <g class="vent-node" transform="translate(190, 100)">
+                <rect x="0" y="0" width="22" height="16" rx="3" fill="#2D3768" stroke="#000" stroke-width="2" />
+                <line x1="4" y1="5" x2="18" y2="5" stroke="#000" stroke-width="1.5" />
+                <line x1="4" y1="8" x2="18" y2="8" stroke="#000" stroke-width="1.5" />
+                <line x1="4" y1="11" x2="18" y2="11" stroke="#000" stroke-width="1.5" />
+              </g>
+
+              <g class="vent-node" transform="translate(390, 240)">
+                <rect x="0" y="0" width="22" height="16" rx="3" fill="#2D3768" stroke="#000" stroke-width="2" />
+                <line x1="4" y1="5" x2="18" y2="5" stroke="#000" stroke-width="1.5" />
+                <line x1="4" y1="8" x2="18" y2="8" stroke="#000" stroke-width="1.5" />
+                <line x1="4" y1="11" x2="18" y2="11" stroke="#000" stroke-width="1.5" />
+              </g>
+
+              <g class="vent-node" transform="translate(180, 280)">
+                <rect x="0" y="0" width="22" height="16" rx="3" fill="#2D3768" stroke="#000" stroke-width="2" />
+                <line x1="4" y1="5" x2="18" y2="5" stroke="#000" stroke-width="1.5" />
+                <line x1="4" y1="8" x2="18" y2="8" stroke="#000" stroke-width="1.5" />
+                <line x1="4" y1="11" x2="18" y2="11" stroke="#000" stroke-width="1.5" />
+              </g>
+            </svg>
+          </div>
+
+          <!-- Dynamic Intel Card -->
+          <div class="map-intel-card">
+            <span class="intel-badge" id="intel-badge-text">Main Hub • IIIT Bhopal Canteen</span>
+            <h3 class="intel-title" id="intel-room-name">Cafeteria (The Central Commons)</h3>
+            <p class="intel-desc" id="intel-room-desc">
+              The central gathering hall where emergency meetings are called. Features live snack counters, 
+              spectator projectors, and strategy tables.
+            </p>
+            <ul class="intel-points" id="intel-room-features">
+              <li class="intel-point-item"><span class="intel-point-icon">✦</span><span>Emergency Red Button console located on the central round table.</span></li>
+              <li class="intel-point-item"><span class="intel-point-icon">✦</span><span>Beverage & Energy bar sponsored by SPARK Tech Club.</span></li>
+              <li class="intel-point-item"><span class="intel-point-icon">✦</span><span>Direct vent routes connect secretly into Electrical & Admin.</span></li>
+            </ul>
+            <a href="#register" class="btn btn-cyan btn-sm">Report For Duty Here</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CREWMATE CUSTOMIZER & PASS GENERATOR -->
+    <section class="customizer-section" id="customizer">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">INTERACTIVE SUIT DESIGNER</span>
+          <h2 class="section-title">SUIT UP, CREWMATE</h2>
+          <p class="section-subtitle">
+            Customize your astronaut avatar with colors and hats, enter your cadet details, and download 
+            your verified official IIIT Bhopal Tournament Pass!
+          </p>
+        </div>
+
+        <div class="customizer-grid">
+          <!-- Avatar Preview Display -->
+          <div class="avatar-preview-box">
+            <div class="avatar-svg-wrap">
+              <svg width="180" height="230" viewBox="0 0 200 240">
+                <!-- Hat Layer -->
+                <g id="svg-hat-layer"></g>
+
+                <!-- Backpack -->
+                <rect id="svg-crew-backpack" x="25" y="70" width="35" height="95" rx="14" fill="#F45858" stroke="#000" stroke-width="6" />
+
+                <!-- Legs & Shadow -->
+                <path d="M 50 205 L 50 185 Q 95 190 140 185 L 140 205 Q 120 215 105 205 Q 85 215 50 205 Z" fill="#B32020" stroke="#000" stroke-width="6" />
+
+                <!-- Main Body -->
+                <rect id="svg-crew-body" x="45" y="45" width="115" height="150" rx="50" fill="#F45858" stroke="#000" stroke-width="6" />
+
+                <!-- Body Shadow Curve -->
+                <path id="svg-crew-shadow" d="M 50 150 Q 100 175 155 150 L 155 170 Q 100 200 50 170 Z" fill="#B32020" />
+
+                <!-- Visor -->
+                <rect x="95" y="65" width="75" height="50" rx="22" fill="#67C9F5" stroke="#000" stroke-width="6" />
+                <!-- Visor Glare Shine -->
+                <ellipse cx="132" cy="78" rx="22" ry="11" fill="#FFFFFF" opacity="0.9" />
+              </svg>
+            </div>
+
+            <h3 class="id-tag-preview" id="preview-tag-name">CADET_SUSPECT</h3>
+            <div class="id-sub-preview" id="preview-tag-sub">ID: IIITB-2026-999</div>
+
+            <div style="margin-top: 24px;">
+              <button id="download-crew-card-btn" class="btn btn-green btn-sm">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Download Official Access Pass (.PNG)
+              </button>
+            </div>
+          </div>
+
+          <!-- Customizer Controls -->
+          <div class="customizer-controls">
+            <!-- Suit Color Picker -->
+            <div class="control-group">
+              <div class="control-label">
+                <span>Suit Color</span>
+                <span style="font-size: 0.75rem; color: var(--color-cyan);">AUTHENTIC SKELD SHADES</span>
+              </div>
+              <div class="color-swatches">
+                <button class="color-swatch-btn active" data-color-name="red" style="background: #F45858;" title="Red"></button>
+                <button class="color-swatch-btn" data-color-name="blue" style="background: #2B6FF5;" title="Blue"></button>
+                <button class="color-swatch-btn" data-color-name="green" style="background: #1CB04B;" title="Green"></button>
+                <button class="color-swatch-btn" data-color-name="pink" style="background: #ED54BA;" title="Pink"></button>
+                <button class="color-swatch-btn" data-color-name="orange" style="background: #F07D18;" title="Orange"></button>
+                <button class="color-swatch-btn" data-color-name="yellow" style="background: #FFD166;" title="Yellow"></button>
+                <button class="color-swatch-btn" data-color-name="black" style="background: #3F474E;" title="Black"></button>
+                <button class="color-swatch-btn" data-color-name="white" style="background: #D6E0F0;" title="White"></button>
+                <button class="color-swatch-btn" data-color-name="purple" style="background: #846CC7;" title="Purple"></button>
+                <button class="color-swatch-btn" data-color-name="cyan" style="background: #67C9F5;" title="Cyan"></button>
+                <button class="color-swatch-btn" data-color-name="lime" style="background: #8DD982;" title="Lime"></button>
+              </div>
+            </div>
+
+            <!-- Headgear / Hat Picker -->
+            <div class="control-group">
+              <div class="control-label">
+                <span>Headgear</span>
+                <span style="font-size: 0.75rem; color: var(--color-yellow);">COSMETIC ACCESSORY</span>
+              </div>
+              <div class="hat-options-grid">
+                <button class="hat-option-btn active" data-hat-name="none">None</button>
+                <button class="hat-option-btn" data-hat-name="dum">Sticky Note</button>
+                <button class="hat-option-btn" data-hat-name="mini">Mini Crew</button>
+                <button class="hat-option-btn" data-hat-name="horns">Viking</button>
+                <button class="hat-option-btn" data-hat-name="party">Party Cone</button>
+                <button class="hat-option-btn" data-hat-name="sprout">Sprout</button>
+                <button class="hat-option-btn" data-hat-name="halo">Angel Halo</button>
+                <button class="hat-option-btn" data-hat-name="fedora">Fedora</button>
+              </div>
+            </div>
+
+            <!-- Name & ID Inputs -->
+            <div class="control-group">
+              <label class="control-label" for="custom-cadet-name">Cadet Name / Gaming Alias</label>
+              <input type="text" id="custom-cadet-name" class="form-input-clean" placeholder="e.g. RedSus, ApexKiller" maxlength="16">
+            </div>
+
+            <div class="control-group">
+              <label class="control-label" for="custom-scholar-id">Scholar ID / Roll No</label>
+              <input type="text" id="custom-scholar-id" class="form-input-clean" placeholder="e.g. 23U02044 or College Roll" maxlength="18">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRIZE POOL SECTION -->
+    <section class="prizes-section" id="prizes">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">TOURNAMENT BOUNTY</span>
+          <h2 class="section-title">₹20,000 PRIZE POOL</h2>
+          <p class="section-subtitle">
+            Every survivor gets a certificate, but only the greatest deciders and sneakiest impostors 
+            walk away with the gold and glory!
+          </p>
+        </div>
+
+        <div class="prizes-grid">
+          <!-- 2nd Place -->
+          <div class="prize-card card-second">
+            <div>
+              <div class="prize-trophy-icon">🥈</div>
+              <h3 class="prize-rank-title">2ND PLACE</h3>
+              <div class="prize-amount">₹6,000</div>
+              <ul class="prize-perks-list">
+                <li class="prize-perk-item">✓ Silver Impostor Hunter Plaque</li>
+                <li class="prize-perk-item">✓ Mechanical Gaming Accessories</li>
+                <li class="prize-perk-item">✓ Certified Runner-Up Badges</li>
+                <li class="prize-perk-item">✓ SPARK Discord VIP Server Role</li>
+              </ul>
+            </div>
+            <a href="#register" class="btn btn-outline btn-sm">Compete For Silver</a>
+          </div>
+
+          <!-- 1st Place (Featured) -->
+          <div class="prize-card card-first">
+            <span class="prize-badge-top">CHAMPIONSHIP SQUAD</span>
+            <div>
+              <div class="prize-trophy-icon">🏆</div>
+              <h3 class="prize-rank-title" style="color: var(--color-yellow);">1ST PLACE - GODFATHER</h3>
+              <div class="prize-amount">₹10,000</div>
+              <ul class="prize-perks-list">
+                <li class="prize-perk-item">✓ Grand Championship Golden Trophy</li>
+                <li class="prize-perk-item">✓ Custom Among Us Embroidered Hoodies</li>
+                <li class="prize-perk-item">✓ Permanent Name on IIIT Bhopal Wall of Fame</li>
+                <li class="prize-perk-item">✓ Free Pass to all SPARK Hackathons in 2026</li>
+              </ul>
+            </div>
+            <a href="#register" class="btn btn-yellow btn-lg">Claim The Crown</a>
+          </div>
+
+          <!-- 3rd Place -->
+          <div class="prize-card card-third">
+            <div>
+              <div class="prize-trophy-icon">🥉</div>
+              <h3 class="prize-rank-title">3RD PLACE</h3>
+              <div class="prize-amount">₹4,000</div>
+              <ul class="prize-perks-list">
+                <li class="prize-perk-item">✓ Bronze Crewmate Medal</li>
+                <li class="prize-perk-item">✓ Official SPARK Goodies & Stickers</li>
+                <li class="prize-perk-item">✓ Discord Tournament Badges</li>
+                <li class="prize-perk-item">✓ Certificate of Esports Excellence</li>
+              </ul>
+            </div>
+            <a href="#register" class="btn btn-outline btn-sm">Compete For Bronze</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOURNAMENT SCHEDULE / ROADMAP -->
+    <section class="schedule-section" id="schedule">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">MISSION BRIEFING</span>
+          <h2 class="section-title">3-DAY TOURNAMENT TIMELINE</h2>
+          <p class="section-subtitle">
+            From online qualifying matches to high-octane LAN battles in CC3 Lab. Mark your calendars!
+          </p>
+        </div>
+
+        <div class="timeline-track">
+          <!-- Day 1 -->
+          <div class="timeline-card">
+            <span class="timeline-day-pill">DAY 01 • NOV 14</span>
+            <h3 class="timeline-card-title">Prelims & Speedruns</h3>
+            <div class="timeline-time-info">Online Discord • 05:00 PM - 09:00 PM</div>
+            <p class="timeline-card-desc">
+              All 64 squads divided into 8 parallel lobbies. Players compete in standard task speedruns 
+              and initial 2-impostor survival trials to qualify for Round 2.
+            </p>
+          </div>
+
+          <!-- Day 2 -->
+          <div class="timeline-card">
+            <span class="timeline-day-pill">DAY 02 • NOV 15</span>
+            <h3 class="timeline-card-title">The Knockout Vents</h3>
+            <div class="timeline-time-info">Hybrid Arena • 04:00 PM - 08:30 PM</div>
+            <p class="timeline-card-desc">
+              Top 24 advancing squads face off with Proximity Voice Chat activated! One false step, 
+              one whispered accusation, and you're ejected into outer space.
+            </p>
+          </div>
+
+          <!-- Day 3 -->
+          <div class="timeline-card">
+            <span class="timeline-day-pill">DAY 03 • NOV 16</span>
+            <h3 class="timeline-card-title">Grand LAN Finale</h3>
+            <div class="timeline-time-info">CC3 Lab & Auditorium • 11:00 AM Onwards</div>
+            <p class="timeline-card-desc">
+              Top 10 finalists battle on stage in front of live spectators. Pro shoutcasters, high-stakes 
+              sabotages, and the official trophy presentation!
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REGISTRATION FORM SECTION -->
+    <section class="register-section" id="register">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">ENLIST NOW</span>
+          <h2 class="section-title">SECURE YOUR BOARDING PASS</h2>
+          <p class="section-subtitle">
+            Slots are allocated on a first-come, first-served basis. Solo players will be matched into squads!
+          </p>
+        </div>
+
+        <div class="register-container-box">
+          <!-- Mode Switcher -->
+          <div class="reg-mode-toggle">
+            <button type="button" class="reg-mode-btn active" data-mode="solo">👤 Solo Crewmate</button>
+            <button type="button" class="reg-mode-btn" data-mode="squad">👥 Squad Leader (4 Cadets)</button>
+          </div>
+
+          <!-- Form Element -->
+          <form id="tournament-reg-form">
+            <div class="form-grid-two">
+              <div class="form-field">
+                <label class="form-field-label" for="reg-player-name">Full Name / Captain Name <span>*</span></label>
+                <input type="text" id="reg-player-name" class="form-field-input" placeholder="e.g. Aryan Sharma" required>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field-label" for="reg-email">College / Personal Email <span>*</span></label>
+                <input type="email" id="reg-email" class="form-field-input" placeholder="e.g. aryan.23@iiitbhopal.ac.in" required>
+              </div>
+            </div>
+
+            <div class="form-grid-two">
+              <div class="form-field">
+                <label class="form-field-label" for="reg-scholar-no">Scholar No. / Roll No. <span>*</span></label>
+                <input type="text" id="reg-scholar-no" class="form-field-input" placeholder="e.g. 23U02044" required>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field-label" for="reg-college">Institution / College <span>*</span></label>
+                <input type="text" id="reg-college" class="form-field-input" value="IIIT BHOPAL" required>
+              </div>
+            </div>
+
+            <div class="form-grid-two">
+              <div class="form-field">
+                <label class="form-field-label" for="reg-discord">Discord Username & Tag</label>
+                <input type="text" id="reg-discord" class="form-field-input" placeholder="e.g. RedSus#1234">
+                <div class="form-field-hint">Used to invite you into the private match coordination channels</div>
+              </div>
+
+              <div class="form-field">
+                <label class="form-field-label" for="reg-device">Primary Gaming Device <span>*</span></label>
+                <select id="reg-device" class="form-field-select" required>
+                  <option value="Laptop / PC (Steam / Epic)">Laptop / PC (Steam / Epic) - Recommended</option>
+                  <option value="Mobile (Android)">Mobile (Android)</option>
+                  <option value="Mobile (iOS / iPad)">Mobile (iOS / iPad)</option>
+                  <option value="Campus CC3 Lab Rig">Campus CC3 Lab Rig</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Squad Members Field (Toggled if squad mode) -->
+            <div class="form-field squad-only-field" style="display: none;">
+              <label class="form-field-label">Squad Members (3 Remaining Teammate Names & Scholar Numbers)</label>
+              <textarea id="reg-squad-members" class="form-field-input" rows="3" placeholder="Member 2: Name - Roll&#10;Member 3: Name - Roll&#10;Member 4: Name - Roll"></textarea>
+            </div>
+
+            <div class="form-checkbox-row">
+              <input type="checkbox" id="reg-terms" class="form-checkbox" required>
+              <label for="reg-terms" class="form-checkbox-label">
+                I agree to the Fair Play & Anti-Cheat oath. I will not ghost in voice calls while dead and will respect referee decisions.
+              </label>
+            </div>
+
+            <button type="submit" class="btn btn-red btn-lg" style="width: 100%;">
+              <span>CONFIRM REGISTRATION & ISSUE BOARDING PASS</span>
+            </button>
+          </form>
+
+          <!-- Success Ticket Pass Output Card -->
+          <div id="registration-success-card">
+            <div class="success-badge-icon">✅</div>
+            <h3 style="font-family: var(--font-heading); font-size: 1.8rem; color: #8DD982; margin-bottom: 6px;">BOARDING PASS CONFIRMED!</h3>
+            <p style="color: #A3ADC2; font-size: 0.95rem; margin-bottom: 20px;">You are officially registered for the IIIT Bhopal Among Us Tournament.</p>
+
+            <!-- Two-Page Interactive Confirmation Preview -->
+            <div class="registration-pages-preview">
+              <!-- Page 1: Pass Details -->
+              <div class="pass-preview-page">
+                <div class="preview-page-tag">PAGE 1 • ENTRY BOARDING PASS</div>
+                <div class="ticket-pass-preview" id="pass-ticket-details">
+                  <!-- Dynamically populated via JS -->
+                </div>
+              </div>
+
+              <!-- Page 2: Congratulations & Official Clearance -->
+              <div class="pass-preview-page congrats-page">
+                <div class="preview-page-tag">PAGE 2 • OFFICIAL CLEARANCE & WELCOME</div>
+                <div class="congratulations-content-box">
+                  <div class="congrats-trophy-icon">🏆</div>
+                  <h4 class="congrats-title">CONGRATULATIONS, CREWMATE!</h4>
+                  <div class="congrats-official-text">
+                    “Congratulations on your registration! You have officially secured your place aboard the IIIT Bhopal Skeld. May your emergency calls be sharp, your tasks be swift, your alibis be airtight, and may you never be caught venting. Welcome to the championship!”
+                  </div>
+                  <div id="congrats-cadet-details" class="congrats-meta-box">
+                    <!-- Populated dynamically with name and scholar ID -->
+                  </div>
+                  <div class="congrats-signatures-row">
+                    <div>
+                      <div class="sig-line"></div>
+                      <span class="sig-title">SPARK Event Convener</span>
+                      <span class="sig-dept">IIIT Bhopal Esports Society</span>
+                    </div>
+                    <div>
+                      <div class="sig-line"></div>
+                      <span class="sig-title">Chief Security Officer</span>
+                      <span class="sig-dept">Skeld Operations Deck</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="success-actions-bar">
+              <button id="print-registration-btn" class="btn btn-cyan btn-lg">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                <span>🖨️ Print Registration Confirmation (2-Pages)</span>
+              </button>
+              <button id="register-new-btn" class="btn btn-outline btn-sm">Enlist Another Cadet</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- RULES & FAQ SECTION -->
+    <section class="faq-section" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-badge">COMMUNICATION CODES</span>
+          <h2 class="section-title">RULES & FREQUENTLY ASKED QUESTIONS</h2>
+          <p class="section-subtitle">
+            Everything you need to know about game settings, proximity chat, and tournament guidelines.
+          </p>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item open">
+            <button class="faq-question-btn">
+              <span>Do I need to own Among Us on PC/Steam to participate?</span>
+              <span class="faq-icon-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              No! Among Us is free to download on Android and iOS devices, and cross-play is fully supported across all platforms. If you wish to play on PC, you can use the Steam version, Epic Games version, or borrow one of the pre-configured PCs in the CC3 Lab during the LAN rounds.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn">
+              <span>How will Proximity Voice Chat work in Round 2 and Finale?</span>
+              <span class="faq-icon-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              We use CrewLink / BetterCrewLink, an open-source proximity chat mod for Among Us. It calculates the in-game distance between players and adjusts audio volume accordingly. A step-by-step 2-minute setup guide will be provided in our Discord server, and technical volunteers will assist you before match time.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn">
+              <span>Can students from other colleges or schools join?</span>
+              <span class="faq-icon-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              Yes! While the tournament is hosted by IIIT Bhopal and held on our campus for LAN stages, the online preliminaries and inter-college brackets welcome students from other universities across Bhopal and India.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn">
+              <span>What are the exact in-game match settings?</span>
+              <span class="faq-icon-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              Standard Tournament Settings: Player Speed: 1.25x | Crewmate Vision: 1.0x | Impostor Vision: 1.5x | Kill Cooldown: 25s | Kill Distance: Medium | Discussion Time: 15s | Voting Time: 60s | Common Tasks: 1 | Long Tasks: 1 | Short Tasks: 2 | Visual Tasks: ON.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button class="faq-question-btn">
+              <span>What happens if a player disconnects mid-game?</span>
+              <span class="faq-icon-arrow">▼</span>
+            </button>
+            <div class="faq-answer">
+              If a disconnect occurs within the first 60 seconds before any kill or meeting takes place, referees will restart the lobby. Any disconnect after the first meeting or kill will proceed as active gameplay to prevent tactical quitting.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top-grid">
+        <div class="footer-brand">
+          <h4>IIIT BHOPAL x SPARK</h4>
+          <p style="font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px;">
+            SPARK is the technical, design, and innovation club of Indian Institute of Information Technology Bhopal.
+            Empowering students to build games, websites, software, and creative tech experiences.
+          </p>
+          <div style="display: flex; gap: 10px;">
+            <span class="brand-tag">WEB MISSION 01</span>
+            <span class="brand-tag" style="background: var(--color-cyan);">CAMPUS ESPORTS</span>
+          </div>
+        </div>
+
+        <div class="footer-links-col">
+          <h5>Tournament Links</h5>
+          <ul class="footer-links-list">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#mini-tasks">Ship Tasks Mini-Game</a></li>
+            <li><a href="#campus-map">Campus Skeld Map</a></li>
+            <li><a href="#customizer">Avatar Badge Generator</a></li>
+            <li><a href="#register">Enlist Now</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-links-col">
+          <h5>Community & Support</h5>
+          <ul class="footer-links-list">
+            <li><a href="https://discord.com" target="_blank" rel="noopener">Official SPARK Discord</a></li>
+            <li><a href="https://iiitbhopal.ac.in" target="_blank" rel="noopener">IIIT Bhopal Official Website</a></li>
+            <li><a href="https://github.com" target="_blank" rel="noopener">GitHub Project Repository</a></li>
+            <li><a href="mailto:spark@iiitbhopal.ac.in">spark@iiitbhopal.ac.in</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div>
+          © 2026 IIIT Bhopal • Crafted with ❤️ for SPARK Web Task Mission 01
+        </div>
+        <div>
+          Red was not an Impostor. 1 Impostor remains.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- EMERGENCY MEETING MODAL (VOTING SIMULATOR) -->
+  <div class="modal-overlay" id="emergency-modal">
+    <div class="emergency-modal-content">
+      <button class="modal-close-btn" id="close-emergency-modal" aria-label="Close Modal">✕</button>
+      
+      <div class="emergency-modal-banner">🚨 EMERGENCY MEETING 🚨</div>
+
+      <p style="color: var(--color-peach); font-size: 1.05rem; margin-bottom: 16px;">
+        Who is the Impostor? Cast your vote on the crewmates below!
+      </p>
+
+      <div class="voting-crew-grid">
+        <div class="voting-crew-item" data-name="Red">
+          <svg width="40" height="48" viewBox="0 0 100 120">
+            <rect x="15" y="25" width="18" height="45" rx="8" fill="#B32020" />
+            <rect x="25" y="10" width="55" height="85" rx="26" fill="#F45858" stroke="#000" stroke-width="4" />
+            <rect x="52" y="22" width="35" height="24" rx="10" fill="#67C9F5" stroke="#000" stroke-width="3" />
+          </svg>
+          <div class="voting-crew-name" style="color: #F45858;">RED</div>
+        </div>
+
+        <div class="voting-crew-item" data-name="Blue">
+          <svg width="40" height="48" viewBox="0 0 100 120">
+            <rect x="15" y="25" width="18" height="45" rx="8" fill="#153DA0" />
+            <rect x="25" y="10" width="55" height="85" rx="26" fill="#2B6FF5" stroke="#000" stroke-width="4" />
+            <rect x="52" y="22" width="35" height="24" rx="10" fill="#67C9F5" stroke="#000" stroke-width="3" />
+          </svg>
+          <div class="voting-crew-name" style="color: #67C9F5;">BLUE</div>
+        </div>
+
+        <div class="voting-crew-item" data-name="Green">
+          <svg width="40" height="48" viewBox="0 0 100 120">
+            <rect x="15" y="25" width="18" height="45" rx="8" fill="#0F692A" />
+            <rect x="25" y="10" width="55" height="85" rx="26" fill="#1CB04B" stroke="#000" stroke-width="4" />
+            <rect x="52" y="22" width="35" height="24" rx="10" fill="#67C9F5" stroke="#000" stroke-width="3" />
+          </svg>
+          <div class="voting-crew-name" style="color: #8DD982;">GREEN</div>
+        </div>
+
+        <div class="voting-crew-item" data-name="Yellow">
+          <svg width="40" height="48" viewBox="0 0 100 120">
+            <rect x="15" y="25" width="18" height="45" rx="8" fill="#C29828" />
+            <rect x="25" y="10" width="55" height="85" rx="26" fill="#FFD166" stroke="#000" stroke-width="4" />
+            <rect x="52" y="22" width="35" height="24" rx="10" fill="#67C9F5" stroke="#000" stroke-width="3" />
+          </svg>
+          <div class="voting-crew-name" style="color: #FFD166;">YELLOW</div>
+        </div>
+      </div>
+
+      <div id="voting-result-text" style="min-height: 44px; margin-bottom: 20px; font-size: 0.95rem; color: #fff;">
+        Click any suspect above to hear their defense!
+      </div>
+
+      <div style="display: flex; gap: 12px; justify-content: center;">
+        <a href="#register" class="btn btn-red btn-sm" onclick="document.getElementById('emergency-modal').classList.remove('active');">
+          Register Before Ejection
+        </a>
+        <button class="btn btn-outline btn-sm" onclick="document.getElementById('emergency-modal').classList.remove('active');">
+          Skip Vote
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIXED FLOATING DOCK (LAPTOP FIRST ACCESSIBILITY) -->
+  <aside class="fixed-game-dock">
+    <button id="dock-bgm-toggle" class="dock-music-btn" aria-label="Toggle Background Music">
+      <span class="music-note-icon">🎵</span>
+      <span id="dock-music-label">Play Ambience</span>
+    </button>
+    <button class="dock-emergency-btn js-emergency-trigger" aria-label="Quick Emergency Call">
+      <span style="font-size: 1.2rem;">🚨</span>
+      <span>EMERGENCY CALL</span>
+    </button>
+  </aside>
+
+  <!-- Background Music Welcome Prompt Toast -->
+  <div id="music-welcome-toast" class="music-toast">
+    <div class="toast-content">
+      <span class="toast-icon">🎧</span>
+      <div class="toast-text">
+        <strong>Space Ambience Ready</strong>
+        <p>Turn on background music for the ultimate Skeld experience!</p>
+      </div>
+      <button id="toast-play-btn" class="toast-btn">Play 🎵</button>
+      <button id="toast-dismiss-btn" class="toast-close" aria-label="Dismiss">✕</button>
+    </div>
+  </div>
+
+  <!-- DEDICATED PRINTABLE DOCUMENT (FORMATTED EXCLUSIVELY FOR 2-PAGE PRINTING) -->
+  <div id="printable-confirmation-document" class="print-document">
+    <!-- PAGE 1: OFFICIAL PASS & ACCREDITATION -->
+    <div class="print-page print-page-1">
+      <div class="print-header">
+        <div class="print-header-top">
+          <div class="print-org-name">INDIAN INSTITUTE OF INFORMATION TECHNOLOGY BHOPAL</div>
+          <div class="print-society-name">SPARK TECHNICAL & ESPORTS SOCIETY • MISSION 01</div>
+        </div>
+        <h1 class="print-doc-title">OFFICIAL TOURNAMENT ENTRY PASS & CONFIRMATION</h1>
+        <div class="print-tagline">AMONG US: THE BHOPAL PROTOCOL CHAMPIONSHIP 2026</div>
+      </div>
+
+      <div class="print-pass-box">
+        <div class="print-row-top">
+          <div>
+            <span class="print-label">TICKET / REGISTRATION ID</span>
+            <div class="print-val-lg" id="print-ticket-id">SUS-789421</div>
+          </div>
+          <div class="print-status-stamp">VERIFIED CREWMATE</div>
+        </div>
+
+        <div class="print-grid-two">
+          <div>
+            <span class="print-label">CADET / CAPTAIN NAME</span>
+            <div class="print-val" id="print-name">Aryan Sharma</div>
+          </div>
+          <div>
+            <span class="print-label">INSTITUTION / COLLEGE</span>
+            <div class="print-val" id="print-college">IIIT BHOPAL</div>
+          </div>
+          <div>
+            <span class="print-label">SCHOLAR / ROLL NUMBER</span>
+            <div class="print-val" id="print-scholar">23U02044</div>
+          </div>
+          <div>
+            <span class="print-label">TOURNAMENT FORMAT</span>
+            <div class="print-val" id="print-format">SOLO SHOWDOWN</div>
+          </div>
+          <div>
+            <span class="print-label">PRIMARY GAMING DEVICE</span>
+            <div class="print-val" id="print-device">Laptop / PC (Steam / Epic)</div>
+          </div>
+          <div>
+            <span class="print-label">DISCORD CADET HANDLE</span>
+            <div class="print-val" id="print-discord">Cadet#1234</div>
+          </div>
+        </div>
+
+        <div class="print-arena-box">
+          <strong>MATCH VENUE & REPORTING TIME:</strong>
+          <p>Reporting: 10:00 AM, November 14-16, 2026 • CC3 LAN Gaming Lab / SPARK Skeld Discord Server</p>
+        </div>
+
+        <div class="print-barcode-box">
+          <div class="print-barcode-visual">
+            ||||| | |||| || ||||| ||| |||| | |||| || ||||| ||| |||| | |||| || ||||| |||
+          </div>
+          <span class="print-barcode-text">* OFFICIAL ENTRY ACCREDITATION • BRING THIS TICKET TO VENUE *</span>
+        </div>
+      </div>
+
+      <div class="print-footer-note">
+        <span>Page 1 of 2 — Tournament Boarding Pass</span>
+        <span>IIIT Bhopal x SPARK Gaming Society</span>
+      </div>
+    </div>
+
+    <!-- PAGE 2: CONGRATULATIONS & WELCOME CERTIFICATE -->
+    <div class="print-page print-page-2">
+      <div class="print-header">
+        <div class="print-header-top">
+          <div class="print-org-name">INDIAN INSTITUTE OF INFORMATION TECHNOLOGY BHOPAL</div>
+          <div class="print-society-name">SPARK TECHNICAL SOCIETY • OFFICIAL INDUCTION</div>
+        </div>
+        <h1 class="print-doc-title">WELCOME ABOARD THE SKELD</h1>
+      </div>
+
+      <div class="print-congrats-container">
+        <div class="print-trophy-symbol">🏆</div>
+        <h2 class="print-congrats-headline">CONGRATULATIONS, CREWMATE!</h2>
+
+        <div class="print-congrats-quote">
+          “Congratulations on your registration! You have officially secured your place aboard the IIIT Bhopal Skeld. May your emergency calls be sharp, your tasks be swift, your alibis be airtight, and may you never be caught venting. Welcome to the championship!”
+        </div>
+
+        <div class="print-certificate-body">
+          This document certifies that <strong id="print-cert-name">CADET</strong> of <strong id="print-cert-college">IIIT BHOPAL</strong> (Scholar No: <strong id="print-cert-scholar">23U00000</strong>) has been officially enrolled and accredited as a registered competitor in the 2026 Inter-College Among Us Tournament.
+        </div>
+
+        <div class="print-code-of-conduct">
+          <strong>CADET PLEDGE & CODE OF CONDUCT:</strong>
+          <ul>
+            <li>Maintain absolute radio silence during round tasks; communication is only permitted during Emergency Meetings.</li>
+            <li>No ghost whispering, stream sniping, or tactical voice call tampering.</li>
+            <li>Play with honesty, integrity, and sportsmanship. May the sharpest detective or the sneakiest impostor win!</li>
+          </ul>
+        </div>
+
+        <div class="print-signatures-grid">
+          <div class="print-sig">
+            <div class="print-sig-line"></div>
+            <div class="print-sig-title">SPARK Event Convener</div>
+            <div class="print-sig-sub">IIIT Bhopal Esports Council</div>
+          </div>
+          <div class="print-sig">
+            <div class="print-sig-line"></div>
+            <div class="print-sig-title">Chief Security Officer</div>
+            <div class="print-sig-sub">Skeld Operations Deck</div>
+          </div>
+          <div class="print-sig">
+            <div class="print-sig-line"></div>
+            <div class="print-sig-title">Cadet Signature</div>
+            <div class="print-sig-sub">Participant Acknowledgement</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="print-footer-note">
+        <span>Page 2 of 2 — Official Certification & Welcome</span>
+        <span>IIIT Bhopal x SPARK Gaming Society</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
